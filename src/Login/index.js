@@ -1,9 +1,12 @@
 import "./index.css";
 import { useState } from "react";
 import { login } from "./utils";
-const Login = () => {
+import { Introduction} from '../App';
+
+const Login = (setIsLoggedIn) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [openModel,setModelIsOpen]=useState(false)
 
 //   console.log({ username });
 
@@ -12,26 +15,25 @@ const Login = () => {
     const result = await login({ username, password });
 
     console.log({ result });
+    if(result.token){
+      localStorage.setItem('token',result.token)
+      setIsLoggedIn(true)
+      setModelIsOpen(false)
+    }
   };
   return (
     <div>
-      <form onSubmit={handleLogin}>
-      <button type="submit">Login</button>
+      <Introduction setModelIsOpen={setModelIsOpen}/>
+      {openModel &&  <form onSubmit={handleLogin}>,
+     
+      {/* <button type="submit">Login</button> */}
         <h2>Login</h2>
-        <input
-          placeholder="Enter username"
-          type="text"
-          onChange={(event) => setUserName(event.target.value)}
-        />
+        <input placeholder="Enter username" type="text" onChange={(event) => setUserName(event.target.value)}/>
         <br />
-        <input
-          placeholder="Enter password"
-          type="password"
-          onChange={(event) => setPassword(event.target.value)}
-        />
+        <input placeholder="Enter password" type="password" onChange={(event) => setPassword(event.target.value)} />
         <br />
        
-      </form>
+      </form>}
     </div>
   );
 };

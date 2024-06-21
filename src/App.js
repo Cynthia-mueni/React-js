@@ -1,23 +1,30 @@
+import { Routes, Route, Link } from "react-router-dom";
 import Login from "./Login";
-import Users from "./Users"; 
-import { useState } from "react";
+import Users from "./Users";
+import LoginLink from "./LoginLink";
 
-export const Introduction = ({setModelIsOpen}) => {
-  const openModel=()=>{
-    setModelIsOpen(true)
-  }
-  return(
-    <button className="login" onClick={openModel}>Login</button>
-  )
-//   return <h1>We are adalab</h1>;
-// };
-  }
-const App = () => {
+export function Introduction() {
+  // const openModel=()=>{
+  // setModelIsOpen(true)
+
+  return (
+    // <button className="login" onClick={openModel}>Login</button>
+
+    <h1>{/* We are adalab */}</h1>
+    // };
+  );
+}
+function App() {
   return (
     <div>
-      <Login />
-      <Users/>
+      <LoginLink />
+      <Routes>
+        <Route path='/login' element={<Login />} />
+        {/* <Login /> */}
+        {/* <Users/> */}
+        <Route path='/users' element={<Users />} />
+      </Routes>
     </div>
   );
-};
+}
 export default App;

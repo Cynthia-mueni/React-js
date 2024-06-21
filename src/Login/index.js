@@ -1,39 +1,35 @@
 import "./index.css";
 import { useState } from "react";
 import { login } from "./utils";
-import { Introduction} from '../App';
+// import { Introduction} from '../App';
+import { Link,useNavigate } from "react-router-dom";
 
-const Login = (setIsLoggedIn) => {
+function Login () {
+  const navigate = useNavigate();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [openModel,setModelIsOpen]=useState(false)
+
 
 //   console.log({ username });
 
   const handleLogin = async (event) => {
     event.preventDefault();
     const result = await login({ username, password });
-
-    console.log({ result });
-    if(result.token){
-      localStorage.setItem('token',result.token)
-      setIsLoggedIn(true)
-      setModelIsOpen(false)
-    }
+    navigate('./users')
+    console.log({result})
+   
   };
   return (
     <div>
-      <Introduction setModelIsOpen={setModelIsOpen}/>
-      {openModel &&  <form onSubmit={handleLogin}>,
-     
-      {/* <button type="submit">Login</button> */}
+      <form onSubmit={handleLogin}>
         <h2>Login</h2>
         <input placeholder="Enter username" type="text" onChange={(event) => setUserName(event.target.value)}/>
         <br />
         <input placeholder="Enter password" type="password" onChange={(event) => setPassword(event.target.value)} />
         <br />
-       
-      </form>}
+       {/* <button type="submit">Login</button> */}
+       <Link to="/users"><button type='submit'>Login</button></Link>
+      </form>
     </div>
   );
 };
